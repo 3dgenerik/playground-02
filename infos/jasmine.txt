@@ -1,0 +1,72 @@
+// INSTALATION
+1. install Jasmine
+    npm i jasmine
+
+2. install reporter
+    npm i jasmine-spec-reporter
+
+3. install typed definitions for jasmine
+    npm i --save-dev @types/jasmine
+
+
+// CONFIGURATION
+1. In the root directory of the project, create a folder named spec.
+2. In the spec folder, create a folder named support.
+3. In the support folder, create a file named jasmine.json to hold the primary configurations for Jasmine.
+4. In the src folder, add a folder named tests.
+5. In tests add a file named indexSpec.ts to hold the tests for code in the index.js file.
+6. In the tests folder, add another folder named helpers.
+7. In helpers, add a file named reporter.ts. This will be the primary configuration for your spec reporter.
+
+
+Add this to reporter:
+import {
+  DisplayProcessor,
+  SpecReporter,
+  StacktraceOption,
+} from 'jasmine-spec-reporter';
+
+class CustomProcessor extends DisplayProcessor {
+    public displayJasmineStarted(info: jasmine.JasmineStartedInfo, log: string): string {
+    return `${log}`;
+  }
+}
+
+jasmine.getEnv().clearReporters();
+jasmine.getEnv().addReporter(
+  new SpecReporter({
+    spec: {
+      displayStacktrace: StacktraceOption.NONE,
+    },
+    customProcessors: [CustomProcessor],
+  }),
+);
+
+
+
+.toEqual(expected value)
+.toBe(expected reference)
+.toBeTruthy()
+  The expectation has any non-zero value
+  The expectation evaluates to true
+.toBeFalsy()
+  0
+  '' (an empty string)
+  undefined
+  null
+  NaN
+
+In JavaScript, use the ! to negate
+In TypeScript, use not
+In Jasmine, use .not
+
+Exceptions
+  .toThrow(expected value)
+  .toThrowError(expected value, expected message) (expected value and expected message are optional)
+Other Matchers
+  .toContain(expected value)
+  .toMatch(expected value)
+  .toBeDefined()
+  .toBeUndefined()
+  .toBeNull()
+  .toBeNan()
